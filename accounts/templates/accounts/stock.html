@@ -1,0 +1,59 @@
+{% load static %}
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Stock</title>
+    <link rel="stylesheet" href="{% static 'accounts/styles.css' %}?v=4">
+</head>
+<body>
+<div class="container">
+    <h2>Stock Status</h2>
+
+    {% if messages %}
+      {% for message in messages %}
+        <p class="error">{{ message }}</p>
+      {% endfor %}
+    {% endif %}
+
+    {% if products %}
+    <table>
+        <tr>
+            <th>Item</th>
+            <th>Price</th>
+            <th>Quantity</th>
+            <th>Threshold</th>
+            <th>Low Supply?</th>
+            <th>Actions</th>
+        </tr>
+        {% for product in products %}
+        <tr>
+            <td>{{ product.name }}</td>
+            <td>${{ product.price }}</td>
+            <td>{{ product.quantity }}</td>
+            <td>{{ product.threshold }}</td>
+            <td>
+                {% if product.is_low_stock %}
+                    <span class="low">❌ Low</span>
+                {% else %}
+                    <span class="ok">✅ OK</span>
+                {% endif %}
+            </td>
+            <td>
+                <a href="{% url 'edit_product' product.pk %}">Edit</a> |
+                <a href="{% url 'delete_product' product.pk %}">Delete</a>
+            </td>
+        </tr>
+        {% endfor %}
+    </table>
+    {% else %}
+    <p><em>No products found. Add a new product.</em></p>
+    {% endif %}
+
+    <br>
+    <a href="{% url 'add_product' %}"><button>Add Product</button></a>
+    <a href="{% url 'dashboard' %}">⬅ Back to Dashboard</a>
+</div>
+</body>
+</html>
+
+

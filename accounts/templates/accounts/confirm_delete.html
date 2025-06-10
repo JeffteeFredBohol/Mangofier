@@ -1,0 +1,21 @@
+{% load static %}
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Page Title</title>
+    <link rel="stylesheet" href="{% static 'accounts/styles.css' %}">
+</head>
+
+<body>
+<div class="container">
+    <h2>Confirm Deletion</h2>
+    <p>Are you sure you want to delete <strong>{{ product.name }}</strong>?</p>
+
+    <form method="POST">
+        {% csrf_token %}
+        <button type="submit">Yes, Delete</button>
+        <a href="{% url 'stock' %}"><button type="button">Cancel</button></a>
+    </form>
+</div>
+</body>
+</html>

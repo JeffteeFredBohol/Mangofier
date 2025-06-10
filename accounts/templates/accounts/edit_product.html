@@ -1,0 +1,28 @@
+{% load static %}
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Page Title</title>
+    <link rel="stylesheet" href="{% static 'accounts/styles.css' %}">
+</head>
+
+<body>
+<div class="container">
+    <h2>Edit Product: {{ product.name }}</h2>
+    <form method="POST">
+        {% csrf_token %}
+        <label>Name:</label><br>
+        <input type="text" name="name" value="{{ product.name }}" required><br>
+        <label>Price:</label><br>
+        <input type="number" step="0.01" name="price" value="{{ product.price }}" required><br>
+        <label>Quantity:</label><br>
+        <input type="number" name="quantity" value="{{ product.quantity }}" required><br>
+        <label>Threshold:</label><br>
+        <input type="number" name="threshold" value="{{ product.threshold }}" required><br><br>
+        <button type="submit">Update</button>
+    </form>
+    <br>
+    <a href="{% url 'stock' %}">⬅ Back to Stock</a>
+</div>
+</body>
+</html>

@@ -1,0 +1,26 @@
+{% load static %}
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Confirm Delete All Sales</title>
+    <link rel="stylesheet" href="{% static 'accounts/styles.css' %}?v=5">
+</head>
+<body>
+<div class="container">
+    <h2>Confirm Delete All Sales</h2>
+
+    {% if total_sales > 0 %}
+        <p>Are you sure you want to delete <strong>all {{ total_sales }} recorded sales</strong>? This cannot be undone.</p>
+
+        <form method="POST">
+            {% csrf_token %}
+            <button type="submit">Yes, Delete All Sales</button>
+            <a href="{% url 'profit_report' %}"><button type="button">Cancel</button></a>
+        </form>
+    {% else %}
+        <p>There are no sales records to delete.</p>
+        <a href="{% url 'profit_report' %}"><button>Back to Profit Report</button></a>
+    {% endif %}
+</div>
+</body>
+</html>

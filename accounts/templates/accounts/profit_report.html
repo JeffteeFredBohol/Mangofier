@@ -1,0 +1,40 @@
+{% load static %}
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Profit Report</title>
+    <link rel="stylesheet" href="{% static 'accounts/styles.css' %}?v=4">
+</head>
+<body>
+<div class="container">
+    <h2>Profit Report</h2>
+
+    <table>
+        <tr>
+            <th>Product</th>
+            <th>Price Per Unit</th>
+            <th>Total Units Sold</th>
+            <th>Profit</th>
+        </tr>
+        {% for item in report_data %}
+        <tr>
+            <td>{{ item.product.name }}</td>
+            <td>${{ item.product.price }}</td>
+            <td>{{ item.total_sold }}</td>
+            <td>${{ item.revenue }}</td>
+        </tr>
+        {% endfor %}
+    </table>
+    {% if total_sales > 0 %}
+    <hr>
+    <a href="{% url 'delete_all_sales' %}">
+        <button>Delete All Sales Records</button>
+    </a>
+{% endif %}
+
+
+
+    <a href="{% url 'dashboard' %}">⬅ Back to Dashboard</a>
+</div>
+</body>
+</html>
